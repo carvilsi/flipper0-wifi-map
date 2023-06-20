@@ -18,7 +18,6 @@
 #define COLUMNS_ON_SCREEN 21
 #define WORKER_EVENTS_MASK (WorkerEventStop | WorkerEventRx)
 
-
 typedef struct {
     Gui* gui;
     ViewPort* view_port;
@@ -35,7 +34,7 @@ typedef enum {
     WorkerEventRx = (1 << 2),
 } WorkerEventFlags;
 
-File* open_file(){
+File* open_file() {
     Storage* storage = furi_record_open(RECORD_STORAGE);
     File* file = storage_file_alloc(storage);
 
@@ -78,7 +77,7 @@ static void wifi_map_view_input_callback(InputEvent* event, void* context) {
     furi_message_queue_put(app->event_queue, event, FuriWaitForever);
 }
 
-static void uart_echo_on_irq_cb(UartIrqEvent ev, uint8_t data, void* context) {
+static voiduart_echo_on_irq_cb(UartIrqEvent ev, uint8_t data, void* context) {
     furi_assert(context);
     WiFiMapApp* app = context;
 
@@ -104,18 +103,6 @@ static int32_t wifi_map_worker(void* context) {
         InputEvent event;
         /* Wait for an input event. Input events come from the GUI thread via a callback. */
         const FuriStatus status = furi_message_queue_get(app->event_queue, &event, FuriWaitForever);
-        
-        size_t length = 0;
-        do {
-            uint8_t data[64];
-            length = furi_stream_buffer_receive(app->rx_stream, data, 64, 0);
-            if(length > 0) {
-                furi_hal_uart_tx(FuriHalUartIdUSART1, data, length);
-                for (size_t i = 0; i < length; i++) {
-                    uart_echo_push_to_list(data[i], app);
-                }
-            }
-        } while(length > 0);
 
         /* This application is only interested in short button presses. */
         if((status != FuriStatusOk) || (event.type != InputTypeShort))
@@ -128,6 +115,26 @@ static int32_t wifi_map_worker(void* context) {
 
     FURI_LOG_D(TAG, "EXIT");
     return 0;
+}
+
+static int32_t wifi_map_uart_callback(void* ctx) {
+    WiFiMapApp* app = ctx;
+
+    size_t length = 0;
+    for(;;) {
+        FURI_LOG_D(TAG, "Am I here?");
+        uint8_t data[64];
+        length = furi_stream_buffer_receive(app->rx_stream, data, 64, 0);
+        if(length > 0) {
+            furi_hal_uart_tx(FuriHalUartIdUSART1, data, length);
+            for (size_t i = 0; i < length; i++) {
+                uart_echo_push_to_list(data[i], app);
+            }
+        }
+    }
+
+    return 0;
+
 }
 
 static WiFiMapApp* wifi_map_app_alloc() {
@@ -145,9 +152,16 @@ static WiFiMapApp* wifi_map_app_alloc() {
     // Gui
     app->gui = furi_record_open(RECORD_GUI);
     gui_add_view_port(app->gui, app->view_port, GuiLayerFullscreen);
+    // NotificationApp* notification = furi_record_open(RECORD_NOTIFICATION);
 
-    app->worker_thread = furi_thread_alloc_ex("WifiMapUartWorker", 1024, wifi_map_worker, app);
-    furi_thread_start(app->worker_thread);
+    // notification_message_block(notification, &sequence_display_backlight_enforce_on);
+
+    // app->worker_thread = furi_thread_alloc_ex("WifiMapUartWorker", 1024, wifi_map_worker, app);
+    // furi_thread_start(app->worker_thread);
+    app->worker_thread = furi_thread_alloc();
+    furi_thread_set_stack_size(app->worker_thread, 1024U);
+    furi_thread_set_context(app->worker_thread, app);
+    furi_thread_set_callback(app->worker_thread, wifi_map_uart_callback);
 
     // Enable uart listener
     furi_hal_console_disable();
