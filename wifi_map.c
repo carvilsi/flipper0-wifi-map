@@ -9,8 +9,6 @@
 #include <notification/notification.h>
 #include <notification/notification_messages.h>
 #include <gui/elements.h>
-#include <furi_hal_uart.h>
-#include <furi_hal_console.h>
 #include <gui/view_dispatcher.h>
 #include <gui/modules/dialog_ex.h>
 #include <locale/locale.h>
@@ -30,6 +28,7 @@ typedef struct {
     FuriThread* worker_thread;
     FuriStreamBuffer* rx_stream;
     File* file;
+    FuriHalSerialHandle* serial_handle;
 } WiFiMapApp;
 
 typedef struct WifiMapModel WifiMapModel;
@@ -146,11 +145,14 @@ static uint32_t uart_echo_exit(void* context) {
         return VIEW_NONE;
 }
 
-static void uart_echo_on_irq_cb(UartIrqEvent ev, uint8_t data, void* context) {
+static void uart_echo_on_irq_cb(FuriHalSerialHandle* handle, uint8_t data, void* context) {
     furi_assert(context);
     WiFiMapApp* app = context;
+    UNUSED(handle);
+    volatile FuriHalSerialRxEvent event_copy = data;
+    UNUSED(event_copy);
 
-    if (ev == UartIrqEventRXNE) {
+    if(data & FuriHalSerialRxEventData) {
         furi_stream_buffer_send(app->rx_stream, &data, 1, 0);
         furi_thread_flags_set(furi_thread_get_id(app->worker_thread), WorkerEventRx);
     }
@@ -249,9 +251,9 @@ static WiFiMapApp* wifi_map_app_alloc() {
     furi_thread_start(app->worker_thread);
 
     // Enable uart listener
-    furi_hal_console_disable();
-    furi_hal_uart_set_br(FuriHalUartIdUSART1, 115200);
-    furi_hal_uart_set_irq_cb(FuriHalUartIdUSART1, uart_echo_on_irq_cb, app);
+    // furi_hal_console_disable();
+    furi_hal_serial_set_br(FuriHalBusUSART1, 115200);
+    furi_hal_uart_set_irq_cb(FuriHalBusUSART1, uart_echo_on_irq_cb, app);
 
     return app;
 }
@@ -259,7 +261,7 @@ static WiFiMapApp* wifi_map_app_alloc() {
 static void wifi_map_app_free(WiFiMapApp* app) {
     furi_assert(app);
 
-    furi_hal_console_enable(); 
+    // furi_hal_console_enable(); 
 
     furi_thread_flags_set(furi_thread_get_id(app->worker_thread), WorkerEventStop);
     furi_thread_join(app->worker_thread);
@@ -298,7 +300,7 @@ int32_t wifi_map_app(void *p){
 	UNUSED(p);
 	FURI_LOG_I(TAG, "wifi_map_app starting...");
 	    WiFiMapApp* app = wifi_map_app_alloc();
-        FuriHalRtcDateTime* rtc = malloc(sizeof(FuriHalRtcDateTime));
+        DateTime* rtc;
         furi_hal_rtc_get_datetime(rtc);
         FuriString *datetime = furi_string_alloc();
         furi_string_printf(datetime, "##### %d-%d-%d_%d:%d:%d #####\n", rtc->day, rtc->month, rtc->year, rtc->hour, rtc->minute, rtc->second);
