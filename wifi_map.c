@@ -328,24 +328,24 @@ static void wifi_map_app_free(WiFiMapApp* app) {
 
 int32_t wifi_map_app(void *p)
 {
-	    UNUSED(p);
-	    FURI_LOG_I(TAG, "wifi_map_app starting...");
-	    WiFiMapApp* app = wifi_map_app_alloc();
+	UNUSED(p);
+	FURI_LOG_I(TAG, "wifi_map_app starting...");
+	WiFiMapApp* app = wifi_map_app_alloc();
         DateTime rtc = {0};
         furi_hal_rtc_get_datetime(&rtc);
         FuriString *datetime = furi_string_alloc();
         furi_string_printf(datetime, "##### %d-%d-%d_%d:%d:%d #####\n",
             rtc.day, rtc.month, rtc.year, rtc.hour, rtc.minute, rtc.second);
         if (!storage_file_write(
-                app->file,
-                furi_string_get_cstr(datetime),
-                furi_string_size(datetime))) {
-            FURI_LOG_E(TAG, "Failed to write to file");
+             app->file,
+             furi_string_get_cstr(datetime),
+             furi_string_size(datetime))) {
+                FURI_LOG_E(TAG, "Failed to write to file");
         }
         view_dispatcher_run(app->view_dispatcher);
         furi_string_free(datetime);
         wifi_map_app_free(app);
-	    return 0;
+	return 0;
 }
 
 // Screen is 128x64 px

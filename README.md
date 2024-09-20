@@ -65,3 +65,11 @@ The data is:
 |------|-----|---------|----------|--------------|
 |  0   |  1  |    2    |    3     |      2       |
 
+---
+
+**Note:** main branch works with latest version of FlipperZero firmware, **1.0.1** (in the moment of writting this).
+If you want to have this app running with a firmware version < 1.* check the *legacy-previous-API-1* at the repo.
+
+---
+
+<3 & Hack the Planet!
