@@ -1,4 +1,4 @@
-# WIFI_MAP
+# WiFi_MaP
 
 ![wifi_map](https://github.com/carvilsi/flipper0-wifi-map/blob/main/wifi_map.png?raw=true)
 
@@ -63,7 +63,7 @@ The data is:
 
 | Open | WEP | WPA_PSK | WPA2_PSK | WPA_WPA2_PSK |
 |------|-----|---------|----------|--------------|
-|  0   |  1  |    2    |    3     |      2       |
+|  0   |  1  |    2    |    3     |      4       |
 
 ---
 
