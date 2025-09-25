@@ -27,7 +27,7 @@ Clone this repo at `applications_user/` folder under `flipperzero-firmware`
 | Flipper Zero GPIO |    ESP32    |
 |-------------------|-------------|
 |      GND          |     GND     |
-|      RX           |     TX0     |
+|      RX           | TXD GPIO_17 |
 |      3V3          |     3V3     |
 
 ## Collected Data
@@ -36,21 +36,26 @@ WiFi_MaP, by now, saves the collected data on a kind of **CSV** formated file, l
 
 ```
 ##### 20-9-2024_17:47:47 #####
-f8a;1.96;3;18
-394;17.78;3;18
-bab;34.81;3;18
-2e4;34.81;4;18
-f81;42.17;3;18
-287;68.13;5;18
-f1d;68.13;4;18
-6cb;74.99;4;18
-7b2;74.99;4;18
-163;82.54;4;18
-198;90.85;4;18
-ff5;90.85;3;18
-72a;100.00;4;18
-163;100.00;4;18
-f8a;1.78;3;21
+163976e1;61.90;4;68
+f8fe611;74.99;3;68
+134a1d9f;74.99;3;68
+f81b53a0;82.54;3;68
+287de1e8;100.00;3;68
+9669d9a2;100.00;3;68
+427291b2;133.35;3;68
+f8a4985c;1.96;3;71
+2e41b0ed;8.25;4;71
+2d2facaa;14.68;3;71
+394d4b0b;19.57;3;71
+bab9b9a6;26.10;3;71
+f81b53a0;31.62;3;71
+58d968cb;34.81;4;71
+9fac872f;34.81;3;71
+287de1e8;38.31;3;71
+163976e1;42.17;4;71
+eb77764e;51.09;3;71
+6cb4288c;68.13;4;71
+69479d2d;74.99;5;71
 ```
 Every time that WiFi_MaP starts adds the date to the file surronded by hash signs, then starts to add the collected AP
 data separated by ';'. The maximun AP that scans is 20.
@@ -58,7 +63,7 @@ The data is:
 
 | AP name hashed | distance to AP (meters) | AP auth mode (1) | seconds since the scan started | 
 |----------------|-------------------------|------------------|--------------------------------|
-|      f8a       |          1.96           |         3        |               18               |
+|    9fac872f    |          1.96           |         3        |               18               |
 
 
 **(1)** -> Table of ESP32 AP WIFI Auth Mode [wifi_auth_mode_t](https://github.com/pycom/esp-idf-2.0/blob/092aa8176ffa0ab386fb6d33e50e1a267bef9d1c/components/esp32/include/esp_wifi_types.h#L58)
