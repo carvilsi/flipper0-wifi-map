@@ -89,12 +89,12 @@ static int32_t close_file(File *file)
 
 static void retrieve_ap_ssid_distance(const char *data, char *apssid, char *dst)
 {
-        for (size_t i = 0; i < 2; i++) {
+        for (size_t i = 0; i < 3; i++) {
                 apssid[i] = data[i];
         }
 
         int cntr = 0;
-        for (size_t i = 9; i < strlen(data); i++) {
+        for (size_t i = 4; i < strlen(data); i++) {
                 if (data[i] == '.')
                         break;
                 else
@@ -111,7 +111,7 @@ static void uart_echo_view_draw_callback(Canvas* canvas, void* _model)
         int cntr = 0;
         for (size_t i = 0; i < MAX_AP_LIST; i++) {
                 const char *line = furi_string_get_cstr(model->lines[i]->line);
-                char apssid[2], dst[6];
+                char apssid[3], dst[6];
                 retrieve_ap_ssid_distance(line, apssid, dst);
                 if (strlen(line) > 0) {
                         int d = atoi(dst);

@@ -25,7 +25,7 @@ Clone this repo at `applications_user/` folder under `flipperzero-firmware`
 | Flipper Zero GPIO |    ESP32    |
 |-------------------|-------------|
 |      GND          |     GND     |
-|      RX           | TXD GPIO_17 |
+|      RX           |     TX0     |
 |      3V3          |     3V3     |
 
 ## Collected Data
