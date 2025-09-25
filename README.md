@@ -58,7 +58,7 @@ The data is:
 
 | AP name hashed | distance to AP (meters) | AP auth mode (1) | seconds since the scan started | 
 |----------------|-------------------------|------------------|--------------------------------|
-|    f8a4985c    |          1.96           |         3        |               18               |
+|      f8a       |          1.96           |         3        |               18               |
 
 
 **(1)** -> Table of ESP32 AP WIFI Auth Mode [wifi_auth_mode_t](https://github.com/pycom/esp-idf-2.0/blob/092aa8176ffa0ab386fb6d33e50e1a267bef9d1c/components/esp32/include/esp_wifi_types.h#L58)
