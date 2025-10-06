@@ -11,4 +11,5 @@ App(
     order=20,
     fap_icon="icon.png",
     fap_category="WIFI-stuff",
+    fap_version="0.2",
 )
