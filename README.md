@@ -35,7 +35,7 @@ Clone this repo at `applications_user/` folder under `flipperzero-firmware`
 WiFi_MaP, by now, saves the collected data on a kind of **CSV** formated file, like:
 
 ```
-##### 20-9-2024_17:47:47 #####
+AP hash;Distance (meters);AP auth mode;Time from start (seconds)
 163976e1;61.90;4;68
 f8fe611;74.99;3;68
 134a1d9f;74.99;3;68
