@@ -61,9 +61,9 @@ Every time that WiFi_MaP starts adds the date to the file surronded by hash sign
 data separated by ';'. The maximun AP that scans is 20.
 The data is:
 
-| AP name hashed | distance to AP (meters) | AP auth mode (1) | seconds since the scan started | 
-|----------------|-------------------------|------------------|--------------------------------|
-|    9fac872f    |          1.96           |         3        |               18               |
+| AP name hashed | distance to AP (meters) | AP auth mode (1) | seconds since the scan started (2) | 
+|----------------|-------------------------|------------------|------------------------------------|
+|    9fac872f    |          1.96           |         3        |                 18                 |
 
 
 **(1)** -> Table of ESP32 AP WIFI Auth Mode [wifi_auth_mode_t](https://github.com/pycom/esp-idf-2.0/blob/092aa8176ffa0ab386fb6d33e50e1a267bef9d1c/components/esp32/include/esp_wifi_types.h#L58)
@@ -71,6 +71,14 @@ The data is:
 | Open | WEP | WPA_PSK | WPA2_PSK | WPA_WPA2_PSK |
 |------|-----|---------|----------|--------------|
 |  0   |  1  |    2    |    3     |      4       |
+
+**(2)** -> It's the time in seconds that the ESP32 module is connected to FlipperZero 
+---
+
+## TODOs
+
+[x] Generate one file by session, filename with date and time.
+[x] Add headers to CSV.
 
 ---
 
