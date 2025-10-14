@@ -67,11 +67,11 @@ The data is:
 
 ### Notes 
 
-- **(1)** -> Table of ESP32 AP WIFI Auth Mode [wifi_auth_mode_t](https://github.com/pycom/esp-idf-2.0/blob/092aa8176ffa0ab386fb6d33e50e1a267bef9d1c/components/esp32/include/esp_wifi_types.h#L58)
+- **(1)** -> Table of ESP32 AP WIFI Auth Mode [wifi_auth_mode_t](https://github.com/espressif/esp-idf/blob/master/components/esp_wifi/include/esp_wifi_types_generic.h#L85)
 
-| Open | WEP | WPA_PSK | WPA2_PSK | WPA_WPA2_PSK |
-|------|-----|---------|----------|--------------|
-|  0   |  1  |    2    |    3     |      4       |
+| Open | WEP | WPA_PSK | WPA2_PSK | WPA_WPA2_PSK | ENTERPRISE/WPA2 | WPA3_PSK |
+|------|-----|---------|----------|--------------|-----------------|----------|
+|  0   |  1  |    2    |    3     |      4       |     5/6         |     7    |
 
 
 - **(2)** -> It's the time in seconds that the ESP32 module is connected to FlipperZero 
