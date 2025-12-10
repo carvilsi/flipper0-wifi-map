@@ -84,7 +84,7 @@ The data is:
 
 ## Plot and Process Colected Data
 
-If you want to plot and process the colected data from your warwalking session please check [flipper0-process-wifi-map-data repo](https://github.com/carvilsi/flipper0-process-wifi-map-data)
+If you want to plot and process the collected data from your warwalking session please check [flipper0-process-wifi-map-data repo](https://github.com/carvilsi/flipper0-process-wifi-map-data)
 
 <div align="center">
     <p>
