@@ -1,12 +1,18 @@
 # WiFi_MaP
 
-![wifi_map](https://github.com/carvilsi/flipper0-wifi-map/blob/main/wifi_map.png?raw=true)
+<div align="center">
+    <p>An ESP32 and FlipperZero wifi mapping</p>
+    <p>
+        <img src="https://github.com/carvilsi/flipper0-wifi-map/blob/main/.github/images/wifi_map.png" alt="wifi_map" >
+    </p>
+</div>
 
-An ESP32 and FlipperZero wifi mapping.
+---
 
 Check the ESP32 side at: [esp32-wifi-map](https://github.com/carvilsi/esp32-wifi-map)
 
 And do not forget to have both sides on the last version.
+
 
 ## Install, etc.
 
@@ -75,13 +81,25 @@ The data is:
 
 
 - **(2)** -> It's the time in seconds that the ESP32 module is connected to FlipperZero 
+
+## Plot and Process Colected Data
+
+If you want to plot and process the colected data from your warwalking session please check [flipper0-process-wifi-map-data repo](https://github.com/carvilsi/flipper0-process-wifi-map-data)
+
+<div align="center">
+    <p>
+        <img src="https://github.com/carvilsi/flipper0-wifi-map/blob/main/.github/images/detail_wifi_map_aps_radius.png" alt="detail_wifi_map_aps_radius" >
+    </p>
+</div>
+
 ---
 
 ## TODOs
 
-[x] Generate one file by session, filename with date and time.
-
-[x] Add headers to CSV.
+- [x] Generate one file by session, filename with date and time.
+- [x] Add headers to CSV.
+- [ ] Add interaction to reset time on ESP32 side
+- [ ] Add navegator; basically with previous collected and processed data, get my current locations
 
 ---
 
